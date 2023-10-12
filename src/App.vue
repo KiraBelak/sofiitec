@@ -1,24 +1,7 @@
 <template>
   <div class="h-screen w-screen px-4 py-8 pr-24 bg-white">
-    <section
-      class="flex w-full ml-10 mr-10 pb-8 px-4 justify-between border-b-2 border-gray-400"
-    >
-      <div class="flex w-1/5 justify-around items-center content-center">
-        <p class="text-orange-500 text-sm">&lt; atras</p>
-
-        <h2 class="text-black font-semibold text-3xl">Pago de Propinas</h2>
-      </div>
-      <div
-        class="flex flex-col justify-center items-end content-center w-1/6 mr-10"
-      >
-        <p class="text-xs text-orange-500">Efectivo en Caja</p>
-        <div
-          class="bg-rose-200 rounded-md font-bold text-3xl px-2 py-px text-bold text-orange-500 w-fit"
-        >
-          $ 5,500.00
-        </div>
-      </div>
-    </section>
+    <!-- seccion de header -->
+    <HeaderSection />
 
     <!-- seccion de flex con tres columnas -->
     <section class="flex w-full mt-8">
@@ -29,11 +12,9 @@
             Total de Propinas
           </p>
           <div class="flex">
-            <div
-              class="bg-rose-200 font-bold text-3xl px-3 py-2 text-bold text-orange-700 rounded-md w-fit"
-            >
-              $ 1,500.00
-            </div>
+           
+
+            <view-number :value="1500.00" />
             <!-- icono de editar -->
             <svg
               class="w-6 h-6 ml-4 text-center align-middle text-black mt-2"
@@ -125,74 +106,77 @@
           </p>
 
           <!-- una cuadricula de dos por dos dejando el ultimo cuadrante vacio -->
-          <div class="grid w-full text-black font-bold grid-cols-2 gap-4 mt-4">
-            <!-- cuadrante 1 -->
-            <div
-              class="flex flex-col border border-gray-500 rounded-xl py-2 px-6 shadow-md text-black shadow-black justify-center items-center content-center"
-            >
-              <!-- icono de efectivo y abajo un parrafo de efectivo -->
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="w-12 h-12"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"
-                />
-              </svg>
+          <!-- <div class="grid w-full text-black font-bold grid-cols-2 gap-4 mt-4"> -->
+             <!-- sección de cuadrantes -->
+  <div class="grid w-full text-black font-bold grid-cols-2 gap-4 mt-4">
+    <PaymentMethod :bgColor="cuadrante1BgColor">
+      <!-- Contenido del cuadrante 1 -->
+      <template v-slot:icon>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-12 h-12"
+        >
+          <!-- Icono del cuadrante 1 -->
 
-              <p class="text-xs font-normal">Efectivo</p>
-            </div>
-            <!-- cuadrante 2 -->
-            <div
-              class="flex flex-col border border-gray-400 rounded-xl py-3 px-6 shadow-md text-white bg-orange-600 shadow-gray-600 justify-center items-center content-center"
-            >
-              <!-- icono de una tarjeta y abajo un parrafo de tarjeta -->
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="w-12 h-12"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"
-                />
-              </svg>
+  <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z" />
 
-              <p class="text-xs font-normal">BBVA 1234</p>
-            </div>
-            <!-- cuadrante 3 -->
-            <div
-              class="flex flex-col border border-gray-500 rounded-xl py-3 px-6 shadow-md text-black shadow-black justify-center items-center content-center"
-            >
-              <!-- icono de una tarjeta y abajo un parrafo de tarjeta -->
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="w-12 h-12"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"
-                />
-              </svg>
 
-              <p class="text-xs font-normal">Santander 1234</p>
-            </div>
-          </div>
+        </svg>
+      </template>
+      <template v-slot:text>
+        Efectivo
+      </template>
+    </PaymentMethod>
+
+    <PaymentMethod :bgColor="cuadrante2BgColor">
+      <!-- Contenido del cuadrante 2 -->
+      <template v-slot:icon>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-12 h-12"
+        >
+          <!-- Icono del cuadrante 2 -->
+
+          <path class="text-white" stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
+
+
+        </svg>
+      </template>
+      <template v-slot:text>
+        BBVA 1234
+      </template>
+    </PaymentMethod>
+
+    <PaymentMethod :bgColor="cuadrante3BgColor">
+      <!-- Contenido del cuadrante 3 -->
+      <template v-slot:icon>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-12 h-12"
+        >
+          <!-- Icono del cuadrante 3 -->
+  <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
+
+        </svg>
+      </template>
+      <template v-slot:text>
+        Santander 1234
+      </template>
+    </PaymentMethod>
+  </div>
+           
 
           <!-- una linea como de progreso donde este en el 75% -->
           <div
@@ -242,65 +226,46 @@
             <div class="flex flex-col w-3/4 mt-4">
               <div class="flex justify-between mt-4 w-full">
                 <div class="flex flex-col mx-2 w-1/3">
-                  <button
-                    class="w-full h-12 bg-gray-200 rounded-md hover:bg-gray-300 text-2xl border border-gray-500 font-bold"
-                  >
+                  <btn-number>
                     1
-                  </button>
-                  <button
-                    class="w-full h-12 bg-gray-200 rounded-md text-2xl border border-gray-500 font-bold mt-2 hover:bg-gray-300"
-                  >
+                  </btn-number>
+                  <btn-number>
                     4
-                  </button>
-                  <button
-                    class="w-full h-12 bg-gray-200 rounded-md text-2xl border border-gray-500 font-bold mt-2 hover:bg-gray-300"
-                  >
+                  </btn-number>
+                  <btn-number>
                     7
-                  </button>
-                  <button
-                    class="w-full h-12 bg-gray-200 rounded-md text-2xl border border-gray-500 font-bold mt-2 hover:bg-gray-300"
-                  >
+                  </btn-number>
+                  <btn-number>
+
                     00
-                  </button>
+                  </btn-number>
                 </div>
                 <div class="flex flex-col mx-1 w-1/3">
-                  <button
-                    class="w-full h-12 bg-gray-200 rounded-md text-2xl border border-gray-500 font-bold hover:bg-gray-300"
-                  >
+                  <btn-number>
                     2
-                  </button>
-                  <button
-                    class="w-full h-12 bg-gray-200 rounded-md text-2xl border border-gray-500 font-bold mt-2 hover:bg-gray-300"
-                  >
+                  </btn-number>
+                  <btn-number>
                     5
-                  </button>
-                  <button
-                    class="w-full h-12 bg-gray-200 rounded-md text-2xl border border-gray-500 font-bold mt-2 hover:bg-gray-300"
-                  >
+                  </btn-number>
+                  <btn-number>
+
                     8
-                  </button>
-                  <button
-                    class="w-full h-12 bg-gray-200 rounded-md text-2xl border border-gray-500 font-bold mt-2 hover:bg-gray-300"
-                  >
+                  </btn-number>
+                  <btn-number>
+
                     0
-                  </button>
+                  </btn-number>
                 </div>
                 <div class="flex flex-col mx-2 w-1/3">
-                  <button
-                    class="w-full h-12 bg-gray-200 rounded-md text-2xl border border-gray-500 font-bold hover:bg-gray-300"
-                  >
+                  <btn-number>
                     3
-                  </button>
-                  <button
-                    class="w-full h-12 bg-gray-200 rounded-md text-2xl border border-gray-500 font-bold mt-2 hover:bg-gray-300"
-                  >
+                  </btn-number>
+                  <btn-number>
                     6
-                  </button>
-                  <button
-                    class="w-full h-12 bg-gray-200 rounded-md text-2xl border border-gray-500 font-bold mt-2 hover:bg-orange-300"
-                  >
+                  </btn-number>
+                  <btn-number>
                     9
-                  </button>
+                  </btn-number>
                   <button
                     class="w-full h-12 bg-orange-600 text-center rounded-md text-2xl border flex justify-center items-center border-gray-500 font-bold mt-2"
                   >
@@ -389,7 +354,27 @@
 </template>
 
 <script>
+
+import HeaderSection from "./components/HeaderSection.vue";
+import ViewNumber from "./components/ViewNumber.vue";
+import PaymentMethod from "./components/PaymentMethod.vue";
+import BtnNumber from "./components/BtnNumber.vue";
+
 export default {
-  // ...
+  name: "App",
+  components: {
+    HeaderSection,
+    ViewNumber,
+    PaymentMethod,
+    BtnNumber,
+  },
+  data() {
+    return {
+      cuadrante1BgColor: "bg-gray-200",
+      cuadrante2BgColor: "bg-orange-600",
+      cuadrante3BgColor: "bg-gray-200",
+      // Otras propiedades de datos...
+    };
+  },
 };
 </script>
