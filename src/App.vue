@@ -7,44 +7,46 @@
     <section class="flex w-full mt-8">
       <!-- columna 1 -->
       <div class="flex flex-col ml-8 w-1/3 mr-4">
-        <div class="flex flex-col justify-center items-center content-center">
-          <p class="text-xs text-orange-400 text-start mr-28">
-            Total de Propinas
-          </p>
-          <div class="flex">
-           
-
-            <view-number :value="1500.00" />
-            <!-- icono de editar -->
-            <svg
-              class="w-6 h-6 ml-4 text-center align-middle text-black mt-2"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M15.293 2.293a1 1 0 011.414 0l1 1a1 1 0 010 1.414l-12 12a1 1 0 01-.39.242l-5 1a1 1 0 01-1.242-1.242l1-5a1 1 0 01.242-.39l12-12zM14 5l1.293 1.293-9.586 9.586-1.293-1.293L14 5zm3.707-3.707l-1 1L15 2l1.707-.707 1 1z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
-          </div>
-        </div>
-        <p class="mt-4 text-md w-full text-start ml-32 font-semibold">
-          ¿Entre cúantos quieres dividir las Propinas?
-        </p>
-
-        <div class="w-full flex text-center items-baseline ml-32">
-          <!-- input para ingresar el numero -->
-          <input
-            class="w-16 mt-2 border-2 border-gray-400 rounded-lg ml-8 px-2 py-1"
-            type="number"
-            placeholder="$"
-          />
-
-          <p class="text-orange-600 font-semibold text-end ml-8">
-            $300.00 por Persona
-          </p>
-        </div>
+    <div class="flex flex-col justify-center items-center content-center">
+      <p class="text-xs text-orange-400 text-start mr-28">Total de Propinas</p>
+      <div class="flex">
+        <view-number v-if="!isEditing" :value="totalValue" />
+        <input
+          v-else
+          type="number"
+          v-model="totalValue"
+          class="w-16 h-6 text-center border rounded-md"
+        />
+        <button
+          @click="toggleEditing"
+          class="w-6 h-6 ml-4 text-center align-middle text-black mt-2"
+        >
+          <svg fill="currentColor" viewBox="0 0 20 20">
+            <!-- Icono de editar -->
+            <path
+            fill-rule="evenodd"
+            d="M15.293 2.293a1 1 0 011.414 0l1 1a1 1 0 010 1.414l-12 12a1 1 0 01-.39.242l-5 1a1 1 0 01-1.242-1.242l1-5a1 1 0 01.242-.39l12-12zM14 5l1.293 1.293-9.586 9.586-1.293-1.293L14 5zm3.707-3.707l-1 1L15 2l1.707-.707 1 1z"
+            clip-rule="evenodd"
+          ></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <p class="mt-4 text-md w-full text-start ml-32 font-semibold">
+      ¿Entre cuántos quieres dividir las Propinas?
+    </p>
+    <div class="w-full flex text-center items-baseline ml-32">
+      <input
+        class="w-16 mt-2 border-2 border-gray-400 rounded-lg ml-8 px-2 py-1"
+        type="number"
+        v-model="division"
+        placeholder="$"
+      />
+      <p class="text-orange-600 font-semibold text-end ml-8">
+        <!-- El total de la división -->
+        ${{ totalPerPerson.toFixed(2) }} por Persona
+      </p>
+    </div>
 
         <div class="ml-32 flex flex-wrap items-center mt-12">
           <!-- icono de wallet -->
@@ -204,7 +206,7 @@
               class="flex text-2xl items-center font-semibold justify-between border-b-2 pb-3 border-gray-800 w-full"
             >
               $
-              <p class="ml-10 font-bold">$1,200.00</p>
+              <p class="ml-10 font-bold">{{ totalAmount.toFixed(2) }}</p>
 
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -373,8 +375,38 @@ export default {
       cuadrante1BgColor: "bg-gray-200",
       cuadrante2BgColor: "bg-orange-600",
       cuadrante3BgColor: "bg-gray-200",
+      isEditing: false,
+      totalValue: 1500.0, 
+      division: 0,
+      totalAmount: 1200.0,
+      totalRemaining: 1200.0,
       // Otras propiedades de datos...
     };
+  },
+  computed: {
+    totalPerPerson() {
+      if (this.division > 0) {
+        return this.totalValue / this.division;
+      } else {
+        return 0;
+      }
+    },
+  },
+  watch: {
+    totalValue: "updateTotalPerPerson",
+    division: "updateTotalPerPerson",
+  },
+  methods: {
+    toggleEditing() {
+      this.isEditing = !this.isEditing;
+    },
+    updateTotalPerPerson() {
+      // Actualiza el cálculo cuando cambian totalValue o division
+      this.totalPerPerson = this.totalValue / this.division;
+    },
+    updateTotalAmount(amount) {
+      this.totalRemaining = this.totalRemaining - amount;
+    },
   },
 };
 </script>
